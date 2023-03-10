@@ -2,6 +2,8 @@
 
 1. GET /bands/:id
 
+-   responds with the relevant band's data
+
 2. GET /songs
 
     - responds with an array containing all of the songs.
