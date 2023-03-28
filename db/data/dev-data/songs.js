@@ -1,0 +1,58 @@
+module.exports = [
+    {
+        song_name: "Say it Aint So",
+        duration: "3:12",
+        released: "1994",
+        artist_id: 1,
+        genre: "alternative",
+    },
+    {
+        song_name: "El Scorcho",
+        duration: "4:03",
+        released: "1996",
+        artist_id: 1,
+        genre: "rock",
+    },
+    {
+        song_name: "Island in the sun",
+        duration: "3:20",
+        released: "2001",
+        artist_id: 1,
+        genre: "pop",
+    },
+    {
+        song_name: "American Idiot",
+        duration: "2:54",
+        released: "2004",
+        artist_id: 2,
+        genre: "rock",
+    },
+    {
+        song_name: "Minority",
+        duration: "2:49",
+        released: "2000",
+        artist_id: 2,
+        genre: "folk-punk",
+    },
+    {
+        song_name: "Hey Jude",
+        duration: "7:12",
+        released: "1968",
+        artist_id: 3,
+        genre: "pop-rock",
+    },
+    {
+        song_name: "Please Please Me",
+        duration: "2:00",
+        released: "1963",
+        artist_id: 3,
+        genre: "merseybeat",
+    },
+    {
+        song_name: "From Me to You",
+        duration: "1:56",
+        released: "1963",
+        artist_id: 3,
+        genre: "merseybeat",
+    },
+];
