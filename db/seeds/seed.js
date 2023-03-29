@@ -13,7 +13,8 @@ const seed = ({ bandsData, songsData }) => {
                         CREATE TABLE bands(
                         artist_id SERIAL PRIMARY KEY,
                         name VARCHAR,
-                        year_formed INT
+                        year_formed INT,
+                        genre VARCHAR
                         );
                 `);
         })
@@ -33,10 +34,10 @@ const seed = ({ bandsData, songsData }) => {
         .then(() => {
             console.log("created songs table...");
             const queryBands = format(
-                `INSERT INTO bands (name, year_formed)
+                `INSERT INTO bands (name, year_formed, genre)
                         VALUES %L RETURNING *;`,
                 bandsData.map((band) => {
-                    return [band.name, band.year_formed];
+                    return [band.name, band.year_formed, band.genre];
                 })
             );
             return db.query(queryBands);
