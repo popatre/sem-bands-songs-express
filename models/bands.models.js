@@ -12,19 +12,20 @@ exports.selectAllBands = (genre) => {
     const queryValues = [];
 
     let bandQueryStr = `
-    SELECT bands.* , COUNT(songs.artist_id)::INT AS song_count 
-    FROM bands
-    LEFT JOIN songs 
-    ON bands.artist_Id = songs.artist_id `;
+    SELECT bands.*, genres.genre  
+    FROM bands 
+    LEFT JOIN genres 
+    ON bands.genre_id = genres.genre_id `;
 
     if (genre) {
-        bandQueryStr += `WHERE bands.genre = $1 `;
+        bandQueryStr += `WHERE genres.genre = $1 `;
         queryValues.push(genre);
     }
 
-    bandQueryStr += `GROUP BY bands.artist_id`;
+    // bandQueryStr += `GROUP BY bands.artist_id`;
 
     return db.query(bandQueryStr, queryValues).then(({ rows }) => {
+        console.log(rows, "****");
         return rows;
     });
 };

@@ -7,7 +7,7 @@ const app = require("../app");
 beforeEach(() => seed(testData));
 afterAll(() => db.end());
 
-xdescribe("/api/bands/:id", () => {
+describe("/api/bands/:id", () => {
     test("Status: 200 - responds with band object by id", () => {
         return request(app)
             .get("/api/bands/1")
@@ -20,8 +20,8 @@ xdescribe("/api/bands/:id", () => {
     });
 });
 
-describe("/api/bands", () => {
-    test("Status: 200 - responds with  all bands", () => {
+describe.only("/api/bands", () => {
+    test.only("Status: 200 - responds with  all bands", () => {
         return request(app)
             .get("/api/bands")
             .expect(200)
@@ -32,12 +32,12 @@ describe("/api/bands", () => {
                         artist_id: expect.any(Number),
                         name: expect.any(String),
                         year_formed: expect.any(Number),
-                        song_count: expect.any(Number),
+                        genre: expect.any(String),
                     });
                 });
             });
     });
-    test("Status: 200 - responds with bands matching genre query", () => {
+    test.only("Status: 200 - responds with bands matching genre query", () => {
         return request(app)
             .get("/api/bands?genre=pop")
             .expect(200)
@@ -48,14 +48,30 @@ describe("/api/bands", () => {
                         artist_id: expect.any(Number),
                         name: expect.any(String),
                         year_formed: expect.any(Number),
-                        song_count: expect.any(Number),
+                        genre: "pop",
                     });
                 });
             });
     });
+    test("Status: 404 - genre query not found", () => {
+        return request(app)
+            .get("/api/bands?genre=notAGenre")
+            .expect(200)
+            .then(({ body }) => {
+                expect(body.msg).toBe("genre not found");
+            });
+    });
+    test("Status: 200 - responds with empty array for valid genre with no bands ", () => {
+        return request(app)
+            .get("/api/bands?genre=punk")
+            .expect(200)
+            .then(({ body }) => {
+                expect(body.bands).toEqual([]);
+            });
+    });
 });
 
-xdescribe("/api/bands/:id/songs", () => {
+describe("/api/bands/:id/songs", () => {
     test("Status 200: responds with all songs by artist id", () => {
         return request(app)
             .get("/api/bands/1/songs")
@@ -74,7 +90,7 @@ xdescribe("/api/bands/:id/songs", () => {
                 });
             });
     });
-    xtest("Status 400: invalid artist id", () => {
+    test("Status 400: invalid artist id", () => {
         return request(app)
             .get("/api/bands/notAnId/songs")
             .expect(400)
@@ -82,7 +98,7 @@ xdescribe("/api/bands/:id/songs", () => {
                 expect(msg).toBe("Invalid id");
             });
     });
-    xtest("Status 404: artist id not found ", () => {
+    test("Status 404: artist id not found ", () => {
         return request(app)
             .get("/api/bands/9999/songs")
             .expect(404)
@@ -90,7 +106,7 @@ xdescribe("/api/bands/:id/songs", () => {
                 expect(msg).toBe("Artist id not found");
             });
     });
-    xtest("Status 200: artist id has not songs associated ", () => {
+    test("Status 200: artist id has no songs associated ", () => {
         return request(app)
             .get("/api/bands/5/songs")
             .expect(200)

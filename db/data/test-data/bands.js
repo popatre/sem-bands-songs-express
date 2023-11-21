@@ -2,31 +2,31 @@ module.exports = [
     {
         name: "Weezer",
         year_formed: 1992,
-        genre: "rock",
+        genre_id: 1,
     },
     {
         name: "Green Day",
         year_formed: 1987,
-        genre: "rock",
+        genre_id: 1,
     },
     {
         name: "The Beatles",
         year_formed: 1960,
-        genre: "rock and roll",
+        genre_id: 2,
     },
     {
         name: "Elton John",
         year_formed: 1980,
-        genre: "pop",
+        genre_id: 3,
     },
     {
         name: "McFly",
         year_formed: 2002,
-        genre: "pop",
+        genre_id: 3,
     },
     {
         name: "Spice Girls",
         year_formed: 1996,
-        genre: "pop",
+        genre_id: 3,
     },
 ];
