@@ -1,5 +1,5 @@
 const { selectBandById, selectAllBands } = require("../models/bands.models");
-
+const { checkExists } = require("../utils/utils");
 exports.getBandById = (req, res, next) => {
     const { id } = req.params;
 
@@ -10,7 +10,10 @@ exports.getBandById = (req, res, next) => {
 
 exports.getAllBands = (req, res, next) => {
     const { genre } = req.query;
-    selectAllBands(genre).then((bands) => {
-        res.status(200).send({ bands });
-    });
+
+    selectAllBands(genre)
+        .then((bands) => {
+            res.status(200).send({ bands });
+        })
+        .catch(next);
 };

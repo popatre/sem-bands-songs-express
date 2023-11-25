@@ -22,10 +22,7 @@ exports.selectAllBands = (genre) => {
         queryValues.push(genre);
     }
 
-    // bandQueryStr += `GROUP BY bands.artist_id`;
-
     return db.query(bandQueryStr, queryValues).then(({ rows }) => {
-        console.log(rows, "****");
         return rows;
     });
 };

@@ -20,8 +20,8 @@ describe("/api/bands/:id", () => {
     });
 });
 
-describe.only("/api/bands", () => {
-    test.only("Status: 200 - responds with  all bands", () => {
+describe("/api/bands", () => {
+    test("Status: 200 - responds with  all bands", () => {
         return request(app)
             .get("/api/bands")
             .expect(200)
@@ -37,7 +37,7 @@ describe.only("/api/bands", () => {
                 });
             });
     });
-    test.only("Status: 200 - responds with bands matching genre query", () => {
+    test("Status: 200 - responds with bands matching genre query", () => {
         return request(app)
             .get("/api/bands?genre=pop")
             .expect(200)
@@ -56,12 +56,12 @@ describe.only("/api/bands", () => {
     test("Status: 404 - genre query not found", () => {
         return request(app)
             .get("/api/bands?genre=notAGenre")
-            .expect(200)
+            .expect(404)
             .then(({ body }) => {
-                expect(body.msg).toBe("genre not found");
+                expect(body.msg).toBe("not found");
             });
     });
-    test("Status: 200 - responds with empty array for valid genre with no bands ", () => {
+    test("Status: 200 - responds with empty array for valid genre with no bands", () => {
         return request(app)
             .get("/api/bands?genre=punk")
             .expect(200)
@@ -95,7 +95,7 @@ describe("/api/bands/:id/songs", () => {
             .get("/api/bands/notAnId/songs")
             .expect(400)
             .then(({ body: { msg } }) => {
-                expect(msg).toBe("Invalid id");
+                expect(msg).toBe("bad request");
             });
     });
     test("Status 404: artist id not found ", () => {
@@ -103,10 +103,10 @@ describe("/api/bands/:id/songs", () => {
             .get("/api/bands/9999/songs")
             .expect(404)
             .then(({ body: { msg } }) => {
-                expect(msg).toBe("Artist id not found");
+                expect(msg).toBe("not found");
             });
     });
-    test("Status 200: artist id has no songs associated ", () => {
+    test("Status 200: responds with empty array when artist id has no songs associated ", () => {
         return request(app)
             .get("/api/bands/5/songs")
             .expect(200)
