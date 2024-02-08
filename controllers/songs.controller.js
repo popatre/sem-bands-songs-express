@@ -1,10 +1,7 @@
-const { selectSongsByArtistId } = require("../models/songs.models");
+const { selectAllSongs } = require("../models/songs.models");
 
-exports.getSongsByArtistId = (req, res, next) => {
-    const { id } = req.params;
-    selectSongsByArtistId(id)
-        .then((songs) => {
-            res.status(200).send({ songs });
-        })
-        .catch(next);
+exports.getAllSongs = async (req, res) => {
+    const songs = await selectAllSongs();
+
+    res.status(200).send({ songs });
 };
